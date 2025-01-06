@@ -1,0 +1,16 @@
+{
+	"id": "dreamlandjokers", 
+	"name": "Dreamland Jokers", 
+	"author": ["MaeveA"], 
+	"description": "A couple of silly Joker guys", 
+	"prefix": "DreamlandJokers", 
+	"main_file": "dreamlandjokers.lua", 
+	"priority": -20, 
+	"badge_colour": "FF230A", 
+	"badge_text_colour": "ABC123", 
+	"display_name": "MaeveA", 
+	"version": "1.0.0", 
+	"dependencies": [
+        "Steamodded(>=1.0.0~ALPHA-1204a)"	
+    ] 
+}
