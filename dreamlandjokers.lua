@@ -521,7 +521,7 @@ SMODS.Joker { -- Devil's Machine
         },
     },
     atlas = 'DreamlandJokers',
-    cost = 6,
+    cost = 7,
     rarity = 2,
     unlocked = true,
     discovered = true,
@@ -541,13 +541,13 @@ SMODS.Joker { -- Devil's Machine
     calculate = function(self, card, context)
         if context.joker_main then
             local sixes = 0
-            for _, card in pairs(G.playing_cards) do
-                if card.config.center:get_id() == 6 then
+            for k, card in ipairs(context.scoring_hand) do
+                if card:get_id() == 6 then
                     sixes = sixes + 1
                 end
             end
             if sixes > 2 then
-                -- delete 2 random cards in hand
+                -- delete 2 random cards
                 return {
                     ease_dollars(card.ability.extra.m_gain)
                 }
@@ -587,8 +587,8 @@ SMODS.Joker { -- Queenly Majesty
     end,
     calculate = function(self, card, context)
         local queens = 0
-        for _, card in pairs(G.playing_cards) do
-            if card.config.center:get_id() == 12 then
+        for k, card in ipairs(context.scoring_hand) do
+            if card:get_id() == 12 then
                 queens = queens + 1
             end
         end
