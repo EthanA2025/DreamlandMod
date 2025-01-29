@@ -14,7 +14,7 @@ Added 2 New Jokers!
 
 Devil's Machine
 Uncommon
-If hand contains at least three 6s 
+If hand contains three or more 6s 
 Destroy 2 random cards in your hand
 Gain 3$
 

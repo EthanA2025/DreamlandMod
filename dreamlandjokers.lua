@@ -510,5 +510,95 @@ SMODS.Joker { -- Voyaguer
     end,
 }
 
+SMODS.Joker { -- Devil's Machine
+    key = "devilsmachine",
+    loc_txt = {
+        name = 'Devil\'s Machine',
+        text = {
+            'If hand contains {C:attention}3 or more 6\'s{}',
+            '{C:attention}destroy{} 2 random cards in your hand',
+            'Gain {C:money}#1#{}'
+        },
+    },
+    atlas = 'DreamlandJokers',
+    cost = 6,
+    rarity = 2,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    pos = {
+        x = 0,
+        y = 1
+    },
+    config = { extra = {
+        m_gain = 3
+    }},
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money, card.ability.extra.m_gain } }
+      end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local sixes = 0
+            for _, card in pairs(G.playing_cards) do
+                if card.config.center:get_id() == 6 then
+                    sixes = sixes + 1
+                end
+            end
+            if sixes > 2 then
+                -- delete 2 random cards in hand
+                return {
+                    ease_dollars(card.ability.extra.m_gain)
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker { -- Queenly Majesty
+
+    key = "queenlymajesty",
+    loc_txt = {
+        name = 'Queenly Majesty',
+        text = {
+            'If hand contains {C:attention}2 or more{} queens',
+            '{X:mult,C:white}X#1#{} Mult',
+        },
+    },
+    atlas = 'DreamlandJokers',
+    cost = 7,
+    rarity = 3,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    pos = {
+        x = 0,
+        y = 2
+    },
+    config = { extra = {
+        Xmult = 2.5,
+    }
+    },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        local queens = 0
+        for _, card in pairs(G.playing_cards) do
+            if card.config.center:get_id() == 12 then
+                queens = queens + 1
+            end
+        end
+        if context.joker_main and queens > 1 then
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
 
 -------------
